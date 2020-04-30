@@ -2,13 +2,15 @@ package main
 
 import (
 	"fmt"
-	"server/models"
-	"server/routers"
+	database "server/database"
+	"server/router"
 )
 
 func main() {
 	fmt.Println("start server")
-	defer models.InitDb().Close()
-	router := routers.InitRouter()
+	defer database.InitGORMDb().Close()
+
+	router := router.InitRouter()
 	router.Run(":8880")
+
 }

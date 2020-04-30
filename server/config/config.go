@@ -21,7 +21,7 @@ func init() {
 	config.SetConfigType("yaml")
 	config.SetConfigName(*release)
 
-	config.AddConfigPath("profile/")
+	config.AddConfigPath("cfg/")
 	err = config.ReadInConfig()
 	if err != nil {
 		log.Fatal("error on parsing configuration file")

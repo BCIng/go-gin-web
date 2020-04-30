@@ -1,7 +1,7 @@
-package routers
+package router
 
 import (
-	. "server/apis"
+	. "server/api"
 
 	"github.com/gin-gonic/gin"
 )
@@ -9,7 +9,7 @@ import (
 func InitRouter() *gin.Engine {
 	router := gin.Default()
 
-	// router.GET("/register", Register)
+	router.GET("/register", Register)
 	router.POST("/register", Register)
 
 	return router
