@@ -5,11 +5,10 @@ import (
 	model "server/model"
 )
 
-func UserCreate(user model.User) (err error) {
-	result := database.DB.Create(&user)
-	if result.Error != nil {
-		err = result.Error
-		return
-	}
-	return
+func UserCreate(user model.User) error {
+	return database.DB.Create(&user).Error
+}
+
+func UserRead(user model.User) error {
+	return database.DB.Where("username =?", user.Username).First(&user).Error
 }

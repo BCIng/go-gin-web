@@ -11,10 +11,25 @@ import (
 
 func Register(c *gin.Context) {
 	var registerValue model.User
+	if err := c.ShouldBind(&registerValue); err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Parameters can't be empty"})
+		return
+	}
+
 	registerValue.Username = c.Request.FormValue("username")
 	registerValue.Password = c.Request.FormValue("password")
 	registerValue.Ip = c.Request.FormValue("ip")
-	err := repository.UserCreate(registerValue)
+
+	if registerValue.Username == "" {
+		c.JSON(http.StatusOK, gin.H{
+			"code":    -1,
+			"message": "请输入账号",
+		})
+		return
+
+	}
+	err := repository.UserRead(registerValue)
+	// err := repository.UserCreate(registerValue)
 	fmt.Print(err)
 
 	if err != nil {
